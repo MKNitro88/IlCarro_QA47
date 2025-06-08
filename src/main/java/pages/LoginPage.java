@@ -17,6 +17,13 @@ public class LoginPage extends BasePage{
     WebElement inputPassword;
     @FindBy(xpath = "//button[@type='submit']")
     WebElement btnLogin;
+    @FindBy(xpath ="//mat-dialog-container/app-error")
+    WebElement dialogContainer;
+    @FindBy(xpath ="//button[text()='Ok']")
+    WebElement btnOkDialog;
+    @FindBy(xpath = "//div[@class='error']")
+    WebElement errorDiv;
+
 
     public void fillLoginForm(String email, String password) {
         inputEmail.sendKeys(email);
@@ -25,6 +32,17 @@ public class LoginPage extends BasePage{
 
     public void clickBtnLogin() {
         btnLogin.click();
+    }
+    public boolean isDialogContainerHasText(String text) {
+        return isTextElementPreseant(dialogContainer, text);
+    }
+
+    public void closeDialogContainer() {
+        btnOkDialog.click();
+
+    }
+    public boolean validateInputErrors(String text) {
+        return isTextElementPreseant(errorDiv, text);
     }
 }
 
