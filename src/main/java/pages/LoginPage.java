@@ -11,12 +11,13 @@ public class LoginPage extends BasePage{
         setDriver(driver);
         PageFactory.initElements(new AjaxElementLocatorFactory(driver,10), this);
     }
+
     @FindBy(id = "email")
     WebElement inputEmail;
     @FindBy(id = "password")
     WebElement inputPassword;
     @FindBy(xpath = "//button[@type='submit']")
-    WebElement btnLogin;
+    WebElement btnYalla;
     @FindBy(xpath ="//mat-dialog-container/app-error")
     WebElement dialogContainer;
     @FindBy(xpath ="//button[text()='Ok']")
@@ -28,13 +29,10 @@ public class LoginPage extends BasePage{
     public void fillLoginForm(String email, String password) {
         inputEmail.sendKeys(email);
         inputPassword.sendKeys(password);
-    }
-
-    public void clickBtnLogin() {
-        btnLogin.click();
+        btnYalla.click();
     }
     public boolean isDialogContainerHasText(String text) {
-        return isTextElementPreseant(dialogContainer, text);
+        return isTextInElementPresent(dialogContainer, text);
     }
 
     public void closeDialogContainer() {
@@ -42,7 +40,8 @@ public class LoginPage extends BasePage{
 
     }
     public boolean validateInputErrors(String text) {
-        return isTextElementPreseant(errorDiv, text);
+
+        return isTextInElementPresent(errorDiv, text);
     }
 }
 

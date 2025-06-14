@@ -5,9 +5,12 @@ import manager.ApplicationManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.BasePage;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.HeaderMenuItem;
 
+import static pages.BasePage.clickButtonsOnHeader;
 import static utils.RandomUtils.generateEmail;
 
 public class LoginTests extends ApplicationManager {
@@ -15,16 +18,14 @@ public class LoginTests extends ApplicationManager {
     LoginPage loginPage;
 
     @BeforeMethod
-    public void goToLoginPage() {
+    public void goToLoginPage(){
         homePage = new HomePage(getDriver());
-        homePage.clickBtnLoginHeader();
-        loginPage = new LoginPage(getDriver());
+        loginPage = clickButtonsOnHeader(HeaderMenuItem.LOGIN);
     }
 
     @Test
     public void loginPositiveTest(){
         loginPage.fillLoginForm("test_mkii@gmail.com","@Password123");
-        loginPage.clickBtnLogin();
     }
     @Test
     public void loginPositiveTest_lombok() {
@@ -33,9 +34,8 @@ public class LoginTests extends ApplicationManager {
                 .password("@Password123")
                 .build();
         loginPage.fillLoginForm(user.getUsername(),user.getPassword());
-        loginPage.clickBtnLogin();
         Assert.assertTrue(loginPage.isDialogContainerHasText("Logged in success"),
-                "Login failed, dialog container does not contain expected text");
+                "positive login test - Lombok");
 
     }
     @Test
@@ -45,9 +45,8 @@ public class LoginTests extends ApplicationManager {
                 .password("Password123!")
                 .build();
         loginPage.fillLoginForm(user.getUsername(),user.getPassword());
-        loginPage.clickBtnLogin();
         Assert.assertTrue(loginPage.isDialogContainerHasText("Login or Password incorrect"),
-                "dialog container does not contain expected text");
+                "negative login test - unregistered user");
 
     }
     @Test
@@ -57,8 +56,8 @@ public class LoginTests extends ApplicationManager {
                 .password("")
                 .build();
         loginPage.fillLoginForm(user.getUsername(),user.getPassword());
-        loginPage.clickBtnLogin();
-        Assert.assertTrue(loginPage.validateInputErrors("Password is required"));
+        Assert.assertTrue(loginPage.validateInputErrors("Password is required"),
+                "negative login test - empty password");
 
     }
     @Test
@@ -68,8 +67,8 @@ public class LoginTests extends ApplicationManager {
                 .password("Password123!")
                 .build();
         loginPage.fillLoginForm(user.getUsername(),user.getPassword());
-        loginPage.clickBtnLogin();
-        Assert.assertTrue(loginPage.validateInputErrors("Email is required"));
+        Assert.assertTrue(loginPage.validateInputErrors("Email is required"),
+                "negative login test - empty email");
 
     }
 }
