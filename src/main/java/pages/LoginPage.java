@@ -1,5 +1,6 @@
 package pages;
 
+import dto.UserLombok;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,9 +27,9 @@ public class LoginPage extends BasePage{
     WebElement errorDiv;
 
 
-    public void fillLoginForm(String email, String password) {
-        inputEmail.sendKeys(email);
-        inputPassword.sendKeys(password);
+    public void fillLoginForm(UserLombok user) {
+        inputEmail.sendKeys(user.getUsername());
+        inputPassword.sendKeys(user.getPassword());
         btnYalla.click();
     }
     public boolean isDialogContainerHasText(String text) {
