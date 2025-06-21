@@ -11,13 +11,15 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 public class LetCarWorkPage extends BasePage {
     public LetCarWorkPage(WebDriver driver) {
         setDriver(driver);
-        PageFactory.initElements(new AjaxElementLocatorFactory(driver,10), this);
-        }
-    @FindBy(id ="pickUpPlace")
-    WebElement inputPickUpPlace;
-
-    public void fillLetCarWorkForm() {
-
-
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
     }
 
+    @FindBy(id = "pickUpPlace")
+    WebElement inputPickUpPlace;
+
+//    public void fillLetCarWorkForm() {
+//
+//
+//    }
+
+}
