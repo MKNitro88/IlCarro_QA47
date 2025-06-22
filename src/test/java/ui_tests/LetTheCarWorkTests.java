@@ -4,14 +4,18 @@ import dto.CarLombok;
 import dto.UserLombok;
 import manager.ApplicationManager;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LetCarWorkPage;
 import pages.LoginPage;
 import utils.HeaderMenuItem;
+import utils.TestNGListner;
 
 import static pages.BasePage.*;
 import static utils.RandomUtils.generateString;
+
+@Listeners(TestNGListner.class)
 
 public class LetTheCarWorkTests extends ApplicationManager {
     LoginPage loginPage;
@@ -31,15 +35,18 @@ public class LetTheCarWorkTests extends ApplicationManager {
     @Test
     public void letTheCarWorkPositiveTest() {
         CarLombok car = CarLombok.builder()
-                .serialNumber(generateString(7))
-                .city("Tel Aviv")
-                .manufacturer("Toyota")
-                .seats(4)
-                .pricePerDay(100.55)
-                .about("nothing special")
-                .carClass("C")
+                .city("Haifa")
+                .manufacturer("Opel")
+                .model("Astra")
                 .year("2020")
+                .fuel("Gas")
+                .seats(4)
+                .carClass("C")
+                .serialNumber("Opel-"+generateString(7))
+                .pricePerDay(100.77)
+                .about("about")
                 .build();
+        letCarWorkPage.fillLetCarWorkForm(car);
 
     }
 }

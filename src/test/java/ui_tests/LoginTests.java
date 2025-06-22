@@ -4,15 +4,20 @@ import dto.UserLombok;
 import manager.ApplicationManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
 import utils.HeaderMenuItem;
+import utils.TestNGListner;
 
 import java.lang.reflect.Method;
 
 import static pages.BasePage.clickButtonsOnHeader;
 import static utils.RandomUtils.generateEmail;
+
+@Listeners(TestNGListner.class)
+
 
 public class LoginTests extends ApplicationManager {
     HomePage homePage;
@@ -30,7 +35,6 @@ public class LoginTests extends ApplicationManager {
                 .username("test_mkii@gmail.com")
                 .password("@Password123")
                 .build();
-        logger.info("test data: " + user);
         loginPage.fillLoginForm(user);
         Assert.assertTrue(loginPage.isDialogContainerHasText("Logged in success"),
                 "positive login test - Lombok");
@@ -38,12 +42,10 @@ public class LoginTests extends ApplicationManager {
     }
     @Test
     public void loginNegativeTest_unregUser(Method method) {
-        logger.info("start method " + method.getName());
         UserLombok user = UserLombok.builder()
                 .username(generateEmail(5))
                 .password("Password123!")
                 .build();
-        logger.info("test data: " + user);
         loginPage.fillLoginForm(user);
         Assert.assertTrue(loginPage.isDialogContainerHasText("Login or Password incorrect"),
                 "negative login test - unregistered user");
@@ -51,12 +53,10 @@ public class LoginTests extends ApplicationManager {
     }
     @Test
     public void loginNegativeTest_emptyPass(Method method) {
-        logger.info("start method " + method.getName());
         UserLombok user = UserLombok.builder()
                 .username("test_mkii@gmail.com")
                 .password("")
                 .build();
-        logger.info("test data: " + user);
         loginPage.fillLoginForm(user);
         Assert.assertTrue(loginPage.validateInputErrors("Password is required"),
                 "negative login test - empty password");
@@ -64,12 +64,10 @@ public class LoginTests extends ApplicationManager {
     }
     @Test
     public void loginNegativeTest_emptyEmail(Method method) {
-        logger.info("start method " + method.getName());
         UserLombok user = UserLombok.builder()
                 .username("")
                 .password("Password123!")
                 .build();
-        logger.info("test data: " + user);
         loginPage.fillLoginForm(user);
         Assert.assertTrue(loginPage.validateInputErrors("Email is required"),
                 "negative login test - empty email");
