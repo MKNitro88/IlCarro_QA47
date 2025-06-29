@@ -11,10 +11,12 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import java.util.List;
 
 public class SignUpPage extends BasePage{
-    public SignUpPage(WebDriver driver) {
+    public SignUpPage(WebDriver driver){
         setDriver(driver);
-        PageFactory.initElements(new AjaxElementLocatorFactory(driver,10), this);
+        PageFactory.initElements(
+                new AjaxElementLocatorFactory(driver, 10), this);
     }
+
     @FindBy(id = "name")
     WebElement inputName;
     @FindBy(id = "lastName")
@@ -23,7 +25,7 @@ public class SignUpPage extends BasePage{
     WebElement inputEmail;
     @FindBy(id = "password")
     WebElement inputPassword;
-    @FindBy(xpath = "//input[@id='terms-of-use']")
+    @FindBy(xpath = "//label[@for='terms-of-use']")
     WebElement checkBox;
     @FindBy(xpath = "//button[@type='submit']")
     WebElement btnYalla;
@@ -44,9 +46,6 @@ public class SignUpPage extends BasePage{
         Actions actions = new Actions(driver);
         actions.moveToElement(checkBox, -width/20*9, 0).click().perform();
     }
-    public void clickCheckBox2(){
-       new Actions(driver).click(checkBox).perform();
-    }
 
     public void clickBtnYalla(){
         btnYalla.click();
@@ -58,10 +57,11 @@ public class SignUpPage extends BasePage{
 
     public boolean validateErrorMessage(String text){
         for (WebElement e : messageErrorNameList){
+            //System.out.println(e.getText());
             if(e.getText().contains(text))
                 return true;
         }
         return false;
     }
-    }
 
+}

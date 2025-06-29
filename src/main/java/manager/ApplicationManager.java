@@ -8,36 +8,43 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import utils.WDListner;
+import utils.WDListener;
 
 import java.time.Duration;
 import java.time.LocalDate;
 
-
 public class ApplicationManager {
-    //public Logger logger = LoggerFactory.getLogger(ApplicationManager.class);
-
     private WebDriver driver;
 
-    public WebDriver getDriver(){
+    public WebDriver getDriver() {
         return driver;
     }
+
+    public Logger logger = LoggerFactory.getLogger(ApplicationManager.class);
+
+
     @BeforeMethod
-    public void setUp() {
+    public void setup() {
+        //logger.info("Start testing "+ LocalDate.now() +" ============================");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        // new realization WDListner in selenium 4.20.0
-        WebDriverListener webDriverListner = new WDListner();
-        driver = new EventFiringDecorator<>(webDriverListner).decorate(driver);
+        //new realization WDListener in Selenium4
+        WebDriverListener webDriverListener = new WDListener();
+        driver = new EventFiringDecorator<>(webDriverListener).decorate(driver);
 
     }
+
     @AfterMethod
     public void tearDown() {
-        if (driver != null) {
+        if (driver != null)
             driver.quit();
-        }
     }
-
 }
+/*
+
+@beforeMethod
+@test
+@afterMethod
+
+ */

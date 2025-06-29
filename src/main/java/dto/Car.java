@@ -4,24 +4,23 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import utils.Fuel;
 
-@ToString
-@Builder
-@Getter
 @Setter
-
-public class CarLombok {
+@Getter
+@Builder
+@ToString
+public class Car {
     private String serialNumber;
-    private String manufacturer;
+    private String manufacture;
     private String model;
     private String year;
     private String fuel;
-    private int seats;
+    // private Fuel fuel;   wrong
+    private Integer seats;
     private String carClass;
-    private double pricePerDay;
+    private Double pricePerDay;
     private String about;
     private String city;
-    //private String imageUrl;
-
-
+    private String image;
 }

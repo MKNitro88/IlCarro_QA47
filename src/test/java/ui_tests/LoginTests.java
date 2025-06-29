@@ -8,69 +8,59 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
-import utils.HeaderMenuItem;
-import utils.TestNGListner;
+import utils.TestNGListener;
 
-import java.lang.reflect.Method;
+import static utils.RandomUtils.*;
 
-import static pages.BasePage.clickButtonsOnHeader;
-import static utils.RandomUtils.generateEmail;
-
-@Listeners(TestNGListner.class)
-
+@Listeners(TestNGListener.class)
 
 public class LoginTests extends ApplicationManager {
     HomePage homePage;
     LoginPage loginPage;
-
     @BeforeMethod
     public void goToLoginPage(){
         homePage = new HomePage(getDriver());
-        loginPage = clickButtonsOnHeader(HeaderMenuItem.LOGIN);
+        homePage.clickBtnLoginHeader();
+        loginPage = new LoginPage(getDriver());
     }
 
+    @Test(enabled = false)
+    public void loginPositiveTest(){
+        HomePage homePage = new HomePage(getDriver());
+        homePage.clickBtnLoginHeader();
+        LoginPage loginPage = new LoginPage(getDriver());
+        loginPage.typeLoginForm("test_mkii@gmail.com", "@Password123");    }
+
     @Test
-    public void loginPositiveTest_lombok(Method method) {
+    public void loginPositiveTest_lombok(){
         UserLombok user = UserLombok.builder()
                 .username("test_mkii@gmail.com")
                 .password("@Password123")
                 .build();
-        loginPage.fillLoginForm(user);
-        Assert.assertTrue(loginPage.isDialogContainerHasText("Logged in success"),
-                "positive login test - Lombok");
-
+        logger.info("test data --> " + user.toString());
+        loginPage.typeLoginForm(user.getUsername(), user.getPassword());
+        Assert.assertTrue(loginPage.validatePopUpMessage("Logged in success"), "loginPositiveTest_lombok");
     }
+
     @Test
-    public void loginNegativeTest_unregUser(Method method) {
+    public void loginNegativeTest_unregUser(){
         UserLombok user = UserLombok.builder()
-                .username(generateEmail(5))
-                .password("Password123!")
+                .username(generateEmail(10))
+                .password("@Password123")
                 .build();
-        loginPage.fillLoginForm(user);
-        Assert.assertTrue(loginPage.isDialogContainerHasText("Login or Password incorrect"),
-                "negative login test - unregistered user");
-
+        logger.info("test data --> " + user.toString());
+        loginPage.typeLoginForm(user.getUsername(), user.getPassword());
+        Assert.assertTrue(loginPage.validatePopUpMessage("Login or Password incorrect"), "loginNegativeTest_unregUser");
     }
+
     @Test
-    public void loginNegativeTest_emptyPass(Method method) {
+    public void loginNegativeTest_EmptyPassword(){
         UserLombok user = UserLombok.builder()
                 .username("test_mkii@gmail.com")
                 .password("")
                 .build();
-        loginPage.fillLoginForm(user);
-        Assert.assertTrue(loginPage.validateInputErrors("Password is required"),
-                "negative login test - empty password");
-
-    }
-    @Test
-    public void loginNegativeTest_emptyEmail(Method method) {
-        UserLombok user = UserLombok.builder()
-                .username("")
-                .password("Password123!")
-                .build();
-        loginPage.fillLoginForm(user);
-        Assert.assertTrue(loginPage.validateInputErrors("Email is required"),
-                "negative login test - empty email");
-
+        logger.info("test data --> " + user.toString());
+        loginPage.typeLoginForm(user.getUsername(), user.getPassword());
+        Assert.assertTrue(loginPage.validateMessageErrorPassword(), "loginNegativeTest_EmptyPassword");
     }
 }

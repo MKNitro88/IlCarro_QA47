@@ -4,13 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.HeaderMenuItem;
-
-import java.time.Duration;
-
 
 public abstract class BasePage {
 
@@ -23,9 +17,13 @@ public abstract class BasePage {
     @FindBy(xpath = "//div[@class='dialog-container']")
     WebElement popUpMessage;
 
-    public void pause(int seconds) {
+    public boolean validatePopUpMessage(String text){
+        return isTextInElementPresent(popUpMessage, text);
+    }
+
+    public void pause(int time) {
         try {
-            Thread.sleep(seconds * 1000L);
+            Thread.sleep(time * 1000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -50,32 +48,19 @@ public abstract class BasePage {
             case LET_CAR_WORK -> {
                 return (T) new LetCarWorkPage(driver);
             }
-            default -> throw new IllegalArgumentException("Invalid parameter headerMenuItem");
+            default -> throw  new IllegalArgumentException("Invalid parameter headerMenuItem");
         }
     }
 
-    public boolean validatePopUpMessage(String text) {
-        return isTextInElementPresent(popUpMessage, text);
+    public boolean isTextInElementPresent(WebElement element, String text) {
+        return element.getText().contains(text);
     }
 
     public boolean isElementPresent(WebElement element) {
         return element.isDisplayed();
     }
 
-    public boolean isTextInElementPresent(WebElement element, String text) {
-
-        return new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.textToBePresentInElement(element, text));
-    }
     public boolean elementIsEnabled(WebElement element){
         return element.isEnabled();
-    }
-
-    public boolean isAlertTextContains(String text) {
-        try {
-            return driver.switchTo().alert().getText().contains(text);
-        } catch (Exception e) {
-            return false;
-        }
     }
 }

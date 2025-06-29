@@ -1,6 +1,5 @@
 package pages;
 
-import dto.UserLombok;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,41 +7,33 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 public class LoginPage extends BasePage{
-    public LoginPage(WebDriver driver)  {
+    public LoginPage(WebDriver driver){
         setDriver(driver);
-        PageFactory.initElements(new AjaxElementLocatorFactory(driver,10), this);
+        PageFactory.initElements(
+                new AjaxElementLocatorFactory(driver, 10), this);
     }
 
     @FindBy(id = "email")
-    WebElement inputEmail;
+    WebElement inputEmail;   // = driver.findElement(By.id("email"))
+
     @FindBy(id = "password")
     WebElement inputPassword;
-    @FindBy(xpath = "//button[@type='submit']")
+
+    @FindBy(xpath = "//button[text()='Y’alla!']")
     WebElement btnYalla;
-    @FindBy(xpath ="//mat-dialog-container/app-error")
-    WebElement dialogContainer;
-    @FindBy(xpath ="//button[text()='Ok']")
-    WebElement btnOkDialog;
-    @FindBy(xpath = "//div[@class='error']")
-    WebElement errorDiv;
 
+    @FindBy(xpath = "//div[text()=' Password is required ']")
+    WebElement messageErrorPassword;
 
-    public void fillLoginForm(UserLombok user) {
-        inputEmail.sendKeys(user.getUsername());
-        inputPassword.sendKeys(user.getPassword());
+    public void typeLoginForm(String email, String password){
+        inputEmail.sendKeys(email);
+        inputPassword.sendKeys(password);
         btnYalla.click();
     }
-    public boolean isDialogContainerHasText(String text) {
-        return isTextInElementPresent(dialogContainer, text);
-    }
 
-    public void closeDialogContainer() {
-        btnOkDialog.click();
 
-    }
-    public boolean validateInputErrors(String text) {
 
-        return isTextInElementPresent(errorDiv, text);
+    public boolean validateMessageErrorPassword(){
+        return isElementPresent(messageErrorPassword);
     }
 }
-

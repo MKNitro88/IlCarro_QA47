@@ -9,31 +9,32 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
-public class WDListner implements WebDriverListener {
-
-    Logger logger = LoggerFactory.getLogger(WDListner.class);
+public class WDListener implements WebDriverListener {
+    Logger logger = LoggerFactory.getLogger(WDListener.class);
 
     @Override
     public void afterGet(WebDriver driver, String url) {
         WebDriverListener.super.afterGet(driver, url);
-        logger.info("Navigated to URL: {}", url);
+        logger.info("open page --> " + url);
     }
 
     @Override
     public void beforeFindElement(WebDriver driver, By locator) {
         WebDriverListener.super.beforeFindElement(driver, locator);
-        logger.info("find element with locator: {}", locator.toString());
+        logger.info("find element with locator --> " + locator.toString());
     }
 
     @Override
     public void afterClick(WebElement element) {
         WebDriverListener.super.afterClick(element);
-        logger.info("Clicked on element: {}", element);
+        logger.info("click to element --> " + element.getTagName());
     }
 
     @Override
     public void afterSendKeys(WebElement element, CharSequence... keysToSend) {
         WebDriverListener.super.afterSendKeys(element, keysToSend);
-        logger.info("clicked on element: {}, with keys: {}", element.getTagName(), Arrays.toString(keysToSend));
+        logger.info("use sendKeys " + element.getTagName() + " --> " + Arrays.toString(keysToSend));
     }
+
+
 }
