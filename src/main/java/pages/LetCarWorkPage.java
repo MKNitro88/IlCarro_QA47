@@ -20,7 +20,6 @@ public class LetCarWorkPage extends BasePage{
 
     @FindBy(id = "pickUpPlace")
     WebElement inputCity;
-
     @FindBy(id = "make")
     WebElement inputManufacture;
     @FindBy(id = "model")
@@ -37,7 +36,8 @@ public class LetCarWorkPage extends BasePage{
     WebElement inputSerialNumber;
     @FindBy(id = "price")
     WebElement inputPrice;
-    //=====================
+    @FindBy(id = "about")
+    WebElement inputAbout;
     @FindBy(xpath = "//input[@type='file']")
     WebElement inputFile;
 
@@ -53,19 +53,20 @@ public class LetCarWorkPage extends BasePage{
         inputManufacture.sendKeys(car.getManufacture());
         inputModel.sendKeys(car.getModel());
         inputYear.sendKeys(car.getYear());
-        //selectFuel.sendKeys(car.getFuel()); //!!!!!!!!!!!!!!!!!!! class select
+        selectFuel.sendKeys(car.getFuel()); //!!!!!!!!!!!!!!!!!!! class select
         typeFuel(car.getFuel());
         inputSeats.sendKeys(car.getSeats().toString());
         inputCarClass.sendKeys(car.getCarClass());
         inputSerialNumber.sendKeys(car.getSerialNumber());
         inputPrice.sendKeys(car.getPricePerDay()+"");
-        //addPhoto(car.getImage());
+        inputAbout.sendKeys(car.getAbout());
+        addPhoto(car.getImage());
         btnSubmit.click();
     }
 
     private void addPhoto(String fileName) {
         inputFile.sendKeys(
-                new File("src/test/resources/photos" + File.separator + fileName).getAbsolutePath());
+                new File("src/test/resources/testPhotos" + File.separator + fileName).getAbsolutePath());
     }
 
     private void typeFuel(String fuel){

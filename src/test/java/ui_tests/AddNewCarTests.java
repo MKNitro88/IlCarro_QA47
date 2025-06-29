@@ -45,7 +45,7 @@ public class AddNewCarTests extends ApplicationManager {
                 .serialNumber("Opel-"+generateString(7))
                 .pricePerDay(100.77)
                 .about("about")
-                .image("cat1.jpg")
+                .image("MyCar.jpg")
                 .build();
         letCarWorkPage.typeAddNewCarForm(car);
     }
