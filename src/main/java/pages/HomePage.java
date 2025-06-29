@@ -19,7 +19,6 @@ public class HomePage extends BasePage{
 
     @FindBy(xpath = "//a[text()=' Log in ']")
     WebElement btnLoginHeader;
-    //WebElement btnLoginHeader = driver.findElement(By.xpath("//a[text()=' Log in ']"));
 
     @FindBy(id = "city")
     WebElement inputCity;
@@ -30,7 +29,6 @@ public class HomePage extends BasePage{
         btnLoginHeader.click();
     }
 
-    //   7/10/2025 - 8/30/2025
     public void typeSearchForm(String city, LocalDate startDate, LocalDate endDate){
         inputCity.sendKeys(city);
         inputDates.sendKeys(dateToString(startDate)+" / "+dateToString(endDate));

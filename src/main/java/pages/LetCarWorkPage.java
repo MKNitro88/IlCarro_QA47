@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.Select;
-import utils.Fuel;
+
 
 import java.io.File;
 
@@ -53,7 +53,7 @@ public class LetCarWorkPage extends BasePage{
         inputManufacture.sendKeys(car.getManufacture());
         inputModel.sendKeys(car.getModel());
         inputYear.sendKeys(car.getYear());
-        selectFuel.sendKeys(car.getFuel()); //!!!!!!!!!!!!!!!!!!! class select
+        selectFuel.sendKeys(car.getFuel());
         typeFuel(car.getFuel());
         inputSeats.sendKeys(car.getSeats().toString());
         inputCarClass.sendKeys(car.getCarClass());

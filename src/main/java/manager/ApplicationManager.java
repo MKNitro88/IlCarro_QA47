@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import utils.WDListener;
 
 import java.time.Duration;
-import java.time.LocalDate;
+
 
 public class ApplicationManager {
     private WebDriver driver;
@@ -25,7 +25,6 @@ public class ApplicationManager {
 
     @BeforeMethod
     public void setup() {
-        //logger.info("Start testing "+ LocalDate.now() +" ============================");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
@@ -35,16 +34,9 @@ public class ApplicationManager {
 
     }
 
-    @AfterMethod(enabled = false)
+    @AfterMethod(enabled = true)
     public void tearDown() {
         if (driver != null)
             driver.quit();
     }
 }
-/*
-
-@beforeMethod
-@test
-@afterMethod
-
- */

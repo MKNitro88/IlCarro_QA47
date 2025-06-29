@@ -28,7 +28,7 @@ public class CarDP {
                 .serialNumber("Opel-" + generateString(7))
                 .pricePerDay(100.77)
                 .about("about")
-                .image("cat1.jpg")
+                .image("MyCar.jpg")
                 .build();
         Car car2 = Car.builder()
                 .city("Haifa")
@@ -41,7 +41,7 @@ public class CarDP {
                 .serialNumber("Opel-" + generateString(7))
                 .pricePerDay(100.77)
                 .about("about")
-                .image("cat1.jpg")
+                .image("MyCar.jpg")
                 .build();
         Car car3 = Car.builder()
                 .city("Haifa")
@@ -54,7 +54,7 @@ public class CarDP {
                 .serialNumber("Opel-" + generateString(7))
                 .pricePerDay(100.77)
                 .about("about")
-                .image("cat1.jpg")
+                .image("MyCar.jpg")
                 .build();
         return new Car[]{car1, car2, car3};
     }
@@ -64,9 +64,9 @@ public class CarDP {
         List<Car> list = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(
                 new FileReader("src/main/resources/data_provider/data_car.csv"))) {
-            String line = bufferedReader.readLine(); //Haifa, ,Astra,2024,Gas,5,A,SN-12345,200.45
+            String line = bufferedReader.readLine();
             while (line != null) {
-                String[] splitArray = line.split(","); //[Haifa] [ ] [Astra] ....
+                String[] splitArray = line.split(",");
                 list.add(Car.builder()
                         .city(splitArray[0])
                         .manufacture(splitArray[1])

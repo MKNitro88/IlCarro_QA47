@@ -57,7 +57,6 @@ public class SignUpPage extends BasePage{
 
     public boolean validateErrorMessage(String text){
         for (WebElement e : messageErrorNameList){
-            //System.out.println(e.getText());
             if(e.getText().contains(text))
                 return true;
         }

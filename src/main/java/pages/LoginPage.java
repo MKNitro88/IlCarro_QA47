@@ -14,7 +14,7 @@ public class LoginPage extends BasePage{
     }
 
     @FindBy(id = "email")
-    WebElement inputEmail;   // = driver.findElement(By.id("email"))
+    WebElement inputEmail;
 
     @FindBy(id = "password")
     WebElement inputPassword;
