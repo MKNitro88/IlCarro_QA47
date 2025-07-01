@@ -1,5 +1,4 @@
-//test_mkii@gmail.com
-//@Password123
+
 package ui_tests;
 
 import data_provider.CarDP;
@@ -15,9 +14,10 @@ import pages.LoginPage;
 import utils.Fuel;
 import utils.HeaderMenuItem;
 import utils.TestNGListener;
-
+import static utils.PropertiesReader.getProperty;
 import static pages.BasePage.*;
 import static utils.RandomUtils.*;
+
 @Listeners(TestNGListener.class)
 public class AddNewCarTests extends ApplicationManager {
 
@@ -28,7 +28,8 @@ public class AddNewCarTests extends ApplicationManager {
     public void login(){
         new HomePage(getDriver());
         loginPage = clickButtonsOnHeader(HeaderMenuItem.LOGIN);
-        loginPage.typeLoginForm("test_mkii@gmail.com", "@Password123");
+        loginPage.typeLoginForm(getProperty("login.properties","email"),
+                getProperty("login.properties","password"));
         letCarWorkPage = clickButtonsOnHeader(HeaderMenuItem.LET_CAR_WORK);
     }
 

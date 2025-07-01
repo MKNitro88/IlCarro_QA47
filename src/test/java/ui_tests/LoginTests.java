@@ -10,6 +10,7 @@ import pages.HomePage;
 import pages.LoginPage;
 import utils.TestNGListener;
 
+import static utils.PropertiesReader.getProperty;
 import static utils.RandomUtils.*;
 
 @Listeners(TestNGListener.class)
@@ -17,6 +18,9 @@ import static utils.RandomUtils.*;
 public class LoginTests extends ApplicationManager {
     HomePage homePage;
     LoginPage loginPage;
+    String validEmail = getProperty("login.properties", "email");
+    String validPassword =getProperty("login.properties", "password");
+
     @BeforeMethod
     public void goToLoginPage(){
         homePage = new HomePage(getDriver());
@@ -29,13 +33,13 @@ public class LoginTests extends ApplicationManager {
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLoginHeader();
         LoginPage loginPage = new LoginPage(getDriver());
-        loginPage.typeLoginForm("test_mkii@gmail.com", "@Password123");    }
+        loginPage.typeLoginForm(validEmail, validPassword);    }
 
     @Test
     public void loginPositiveTest_lombok(){
         UserLombok user = UserLombok.builder()
-                .username("test_mkii@gmail.com")
-                .password("@Password123")
+                .username(validEmail)
+                .password(validPassword)
                 .build();
         logger.info("test data --> " + user.toString());
         loginPage.typeLoginForm(user.getUsername(), user.getPassword());
@@ -46,7 +50,7 @@ public class LoginTests extends ApplicationManager {
     public void loginNegativeTest_unregUser(){
         UserLombok user = UserLombok.builder()
                 .username(generateEmail(10))
-                .password("@Password123")
+                .password(validPassword)
                 .build();
         logger.info("test data --> " + user.toString());
         loginPage.typeLoginForm(user.getUsername(), user.getPassword());
@@ -56,7 +60,7 @@ public class LoginTests extends ApplicationManager {
     @Test
     public void loginNegativeTest_EmptyPassword(){
         UserLombok user = UserLombok.builder()
-                .username("test_mkii@gmail.com")
+                .username(validEmail)
                 .password("")
                 .build();
         logger.info("test data --> " + user.toString());

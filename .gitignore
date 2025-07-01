@@ -5,6 +5,7 @@ build/
 !**/src/test/**/build/
 
 ### IntelliJ IDEA ###
+/src/test/resources/properties
 test_logs
 .idea/modules.xml
 .idea/jarRepositories.xml
@@ -41,3 +42,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/src/test/resources/properties/
