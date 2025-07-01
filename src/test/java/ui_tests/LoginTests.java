@@ -8,6 +8,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.RetryAnalyzer;
 import utils.TestNGListener;
 
 import static utils.PropertiesReader.getProperty;
@@ -35,7 +36,7 @@ public class LoginTests extends ApplicationManager {
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.typeLoginForm(validEmail, validPassword);    }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void loginPositiveTest_lombok(){
         UserLombok user = UserLombok.builder()
                 .username(validEmail)
